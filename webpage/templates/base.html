@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Scootr.io{% endblock %}</title>
+  <script src="https://unpkg.com/@tabler/icons@latest/icons-react.min.js" defer></script>
+  <link href="https://unpkg.com/tabler-icons@latest/iconfont/tabler-icons.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+  <script src="https://unpkg.com/@google/generative-ai"></script>
+
+  
+
+
+  <!-- Modular CSS Imports -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/hero.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cards.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/team.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/booking.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/confirmation.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/History.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/booking_styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/my_booking.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/report_issue.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/error.css') }}">
+
+ 
+  
+</head>
+<body>
+
+  <header>
+    <div class="navbar">
+      <div class="logo-section">
+        <a href="/">
+          <img src="{{ url_for('static', filename='logo.png') }}" alt="Scootr.io Logo">
+        </a>
+        {% if session.get('user') %}
+        <div class="user-balance">
+           ${{ '%.2f' % session.get('balance', 0) }}
+        </div>
+         <form id="camera-form" action="{{ url_for('booking.open_camera') }}" method="get">
+              <img id="qr-code-scanner" src="{{ url_for('static', filename='qr-code.png') }}" alt="Open Camera" 
+              onclick="document.getElementById('camera-form').submit()">
+        </form>
+        {% endif %}
+      </div>
+  
+      <nav>
+        <button class="btn-home" onclick="location.href='/booking'">Home</button>
+        {% if session.get('user') %}
+          <div class="profile-nav">
+            <div class="profile-icon" onclick="location.href='/profile'" title="Profile">
+              {{ session['user'][0]|upper }}
+            </div>
+            <button class="btn-outline" onclick="location.href='/my_bookings'">My Bookings</button>
+            <button class="btn-pink" onclick="location.href='/logout'">Logout</button>
+          </div>
+        {% else %}
+          <button class="btn-pink" onclick="location.href='/login'">Login</button>
+          <button class="btn-pink" onclick="location.href='/register'">Register</button>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+  
+  
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

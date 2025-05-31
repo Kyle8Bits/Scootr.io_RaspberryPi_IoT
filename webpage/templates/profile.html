@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+<!-- Banner / Greeting -->
+<div class="profile-banner">
+  <div class="left-banner">
+    <img
+      src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"
+      alt="Avatar"
+      class="avatar"
+    >
+    <div class="greeting-text">
+      <h1>Hello, {{ user.first_name or user.username }}!</h1>
+      <p>Manage your account below.</p>
+    </div>
+  </div>
+
+  <a href="{{ url_for('user.history') }}" class="history-image-button" title="View Booking History">
+    <img src="{{ url_for('static', filename='History.png') }}" alt="View History">
+    <span class="history-label">View History</span>
+  </a>
+</div>
+<div>
+{% if error %}
+  <div class="error-message">{{ error }}</div>
+{% endif %}
+{% if success %}
+  <div class="success-message">{{ success }}</div>
+{% endif %}
+
+{% if request.args.get('error') %}
+  <div class="error-message">{{ request.args.get('error') }}</div>
+{% endif %}
+
+{% if request.args.get('success') %}
+  <div class="success-message">{{ request.args.get('success') }}</div>
+{% endif %}
+
+</div>
+<!-- Top Cards: Account Info, Security, Balance -->
+<div class="profile-grid top-grid">
+
+  <!-- Account Information -->
+  <div class="profile-card account-info">
+    <div class="card-header">
+      <h2 class="section-title"><i class="icon-user"></i> Account Information</h2>
+      <button id="edit-account-btn" class="btn-outline small">
+        <i class="icon-edit"></i> Edit
+      </button>
+    </div>
+    <form
+      id="account-form"
+      class="form-section read-only"
+      method="POST"
+      action="{{ url_for('profile.update_info') }}"
+    >
+      {% for id,label,icon,tm in [
+        ('username','Username','icon-user','text'),
+        ('email','Email','icon-mail','email'),
+        ('first_name','First Name','icon-id','text'),
+        ('last_name','Last Name','icon-id','text'),
+        ('phone_number','Phone','icon-phone','tel')
+      ] %}
+      <div class="form-group">
+        <label for="{{ id }}"><i class="{{ icon }}"></i> {{ label }}</label>
+        <input
+          id="{{ id }}"
+          name="{{ id }}"
+          type="{{ tm }}"
+          value="{{ user[id] or '' }}"
+          disabled
+        >
+      </div>
+      {% endfor %}
+      <div class="form-actions">
+        <button type="submit" class="btn-primary" id="save-account-btn">
+          <i class="icon-check"></i> Save
+        </button>
+        <button type="button" class="btn-outline" id="cancel-account-btn">
+          <i class="icon-x"></i> Cancel
+        </button>
+      </div>
+    </form>
+
+     <!-- Security -->
+  <div class="profile-card security-card">
+    <div class="card-header">
+      <h2 class="section-title"><i class="icon-lock"></i> Security</h2>
+    </div>
+    <div class="security-summary" id="security-summary">
+      <p class="helper-text">Your password is strong</p>
+      <a href="#" id="edit-security-btn" class="small-link">
+        <i class="icon-lock"></i> Change Password
+      </a>
+    </div>
+    <form
+      id="security-form"
+      class="form-section hidden"
+      method="POST"
+      action="{{ url_for('profile.change_password') }}"
+    >
+    {% for fld, label in [
+      ('current_password','Current Password'),
+      ('new_password','New Password'),
+      ('confirm_password','Confirm New Password')
+    ] %}
+    <div class="form-group">
+      <label for="{{ fld }}">{{ label }}</label>
+      <div class="input-wrapper">
+        <input id="{{ fld }}" name="{{ fld }}" type="password" required placeholder="{{ label }}">
+        <span class="eye-icon" onclick="togglePassword('{{ fld }}', 'eye-{{ fld }}')">
+          <svg id="eye-{{ fld }}" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye">
+            <path d="M0 0h24v24H0z" stroke="none"/>
+            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+            <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+    {% endfor %}
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">
+          <i class="icon-check"></i> Update
+        </button>
+        <button type="button" class="btn-outline" id="cancel-security-btn">
+          <i class="icon-x"></i> Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+  </div>
+
+ 
+
+  
+  <div>
+    <!-- Account Balance -->
+    <div class="profile-card balance-card">
+      
+      <div class="card-header">
+        <h2 class="section-title"><i class="icon-wallet"></i> Account Balance</h2>
+      </div>
+
+      <div class="balance-display">
+        {{ '$' + "{:,.2f}".format(user.balance or 0) }}
+      </div>
+
+      <div class="balance-controls">
+        <button class="btn-outline btn-small amount-btn" data-amount="10">+$10</button>
+        <button class="btn-outline btn-small amount-btn" data-amount="50">+$50</button>
+        <button class="btn-outline btn-small amount-btn" data-amount="100">+$100</button>
+      </div>
+
+      <div class="form-group mt-0_5">
+        <label for="custom-amount" class="small-label">Custom Amount ($)</label>
+        <input type="number" id="custom-amount" class="input-small" min="1" step="1" placeholder="Enter amount...">
+      </div>
+
+      <button id="apply-topup-btn" class="btn-primary full-width mt-1">
+        <i class="icon-credit-card"></i> Top Up
+      </button>
+
+      <div id="topup-feedback" class="feedback-message hidden"></div>
+    </div>
+      
+      <div class="profile-card usage-card">
+        <h2 class="section-title" style="text-align: center; font-size: 1.5rem;"><i class="icon-activity"></i> Usage Summary</h2>
+        <!-- <div class="chart-centered"><div id="usageChart"></div></div> -->
+        <div id="usageChart"
+          data-inuse="{{ user.in_use_count | default(0) }}"
+          data-returned="{{ user.returned_count | default(0) }}"
+          data-canceled="{{ user.canceled_count | default(0) }}"
+          data-waiting="{{ user.waiting_count | default(0) }}">
+        </div>
+        <div class="summary-row">
+          <div class="summary-tag booked">Booked<br><strong>{{ user.booked_count or 0 }}</strong></div>
+          <div class="summary-tag returned">Returned<br><strong>{{ user.returned_count or 0 }}</strong></div>
+          <div class="summary-tag canceled">Canceled<br><strong>{{ user.canceled_count or 0 }}</strong></div>
+          <div class="summary-tag waiting">Waiting<br><strong>{{ user.waiting_count or 0 }}</strong></div>
+        </div>
+      </div>
+    
+  </div>
+
+</div>
+
+<!-- Usage Summary -->
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+{% endblock %}
+ 

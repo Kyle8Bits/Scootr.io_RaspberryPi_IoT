@@ -1,0 +1,101 @@
+{% extends "base_engineer.html" %}
+{% block title %}Assigned Issues | Scootr.io{% endblock %}
+
+{% block content %}
+<section class="engineer-section">
+  <h2>🛠 My Approved Issue Reports</h2>
+
+  <div class="filters">
+    <label for="status-filter">Filter by status:</label>
+    <select id="status-filter" onchange="filterIssuesByStatus()">
+      <option value="all">All</option>
+      <option value="Open">Open</option>
+      <option value="Resolved">Resolved</option>
+    </select>
+  </div>
+
+  <table id="issues-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Scooter ID</th>
+        <th>Customer ID</th>
+        <th>Type</th>
+        <th>Details</th>
+        <th>Reported At</th>
+        <th>Status</th>
+        <th>Approved At</th>
+        <th>Resolved At</th>
+        <th>Map</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="issues-body">
+      <!-- Injected by JS -->
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <button id="prev-page">⏮ Prev</button>
+    <span id="page-info">Page 1</span>
+    <button id="next-page">Next ⏭</button>
+  </div>
+</section>
+
+<!-- Resolution Modal -->
+<div id="resolve-modal" class="modal hidden">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeResolveModal()">×</button>
+    <h3>✅ Confirm Resolution</h3>
+
+    <!-- Resolution Type -->
+    <div class="form-group">
+      <label for="resolution-type"><strong>Select a Resolution:</strong></label>
+      <div class="resolution-options">
+        <button type="button" class="pill-option" data-value="battery_recharged">🔋 Battery Recharged</button>
+        <button type="button" class="pill-option" data-value="battery_replaced">🔋 Battery Replaced</button>
+        <button type="button" class="pill-option" data-value="tire_repaired">🛞 Tire Repaired</button>
+        <button type="button" class="pill-option" data-value="mechanical_fixed">🔧 Mechanical Fix</button>
+        <button type="button" class="pill-option" data-value="electronic_reset">⚡ Restarted</button>
+        <button type="button" class="pill-option" data-value="moved_to_station">📍 Moved to Station</button>
+        <button type="button" class="pill-option" data-value="no_issue_found">✅ No Issue Found</button>
+        <button type="button" class="pill-option" data-value="cannot_fix_needs_review">🚫 Cannot Fix</button>
+        <button type="button" class="pill-option" data-value="other">📝 Other</button>
+      </div>
+      <input type="hidden" id="resolution-type" required />
+    </div>
+
+    <!-- Resolution Details -->
+    <div class="form-group">
+      <label for="resolution-details"><strong>Details <span style="color: red;">*</span></strong></label>
+      <textarea id="resolution-details" rows="5" placeholder="Describe what you did to resolve the issue..." required></textarea>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="modal-buttons">
+      <button class="btn-close-modal" onclick="closeResolveModal()">Cancel</button>
+      <button class="btn-submit" id="confirm-resolve-btn">Submit Resolution</button>
+    </div>
+  </div>
+</div>
+
+<!-- Scooter Info Modal -->
+<div id="scooter-modal" class="modal hidden">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeScooterModal()">×</button>
+    <h3>🛴 Scooter Details</h3>
+    <div id="scooter-details">
+      <!-- Filled dynamically -->
+    </div>
+    <button class="btn-close-modal" onclick="closeScooterModal()">Close</button>
+  </div>
+</div>
+
+
+<!--  Flash banner -->
+<div id="flash-banner" class="alert alert-success hidden"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/engineer/engineer_issues.js') }}"></script>
+{% endblock %}

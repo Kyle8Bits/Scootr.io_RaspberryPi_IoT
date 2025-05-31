@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<div class="form-container">
+  <h2>Create Account</h2>
+  <p class="form-subtext">Join Scootr.io and start riding smarter</p>
+
+  <form method="POST" action="{{ url_for('user.register') }}" onsubmit="return validatePasswordRules()">
+    {% if error %}
+      <div class="error-message">{{ error }}</div>
+    {% endif %}
+    {% if success %}
+      <div class="success-message">{{ success }}</div>
+    {% endif %}
+
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" placeholder="Choose a username" required>
+
+    <label for="password">Password</label>
+    <div class="input-wrapper">
+      <input type="password" id="password" name="password" placeholder="Create a password" required>
+      <span class="eye-icon" onclick="togglePassword('password', 'eye-icon')">
+        <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye">
+          <path d="M0 0h24v24H0z" stroke="none"/>
+          <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+          <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
+        </svg>
+      </span>
+    </div>
+
+    <ul class="password-rules">
+      <li class="rule-item" data-pattern=".{8,}">At least 8 characters</li>
+      <li class="rule-item" data-pattern="[A-Z]">At least one uppercase letter</li>
+      <li class="rule-item" data-pattern="[a-z]">At least one lowercase letter</li>
+      <li class="rule-item" data-pattern="[0-9]">At least one number</li>
+      <li class="rule-item" data-pattern="[!@#$%^&*]">At least one special character (!@#$%^&*)</li>
+    </ul>
+
+    <label for="confirm">Confirm Password</label>
+    <div class="input-wrapper">
+      <input type="password" id="confirm" name="confirm" placeholder="Retype your password" required>
+      <span class="eye-icon" onclick="togglePassword('confirm', 'eye-confirm')">
+        <svg id="eye-confirm" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye">
+          <path d="M0 0h24v24H0z" stroke="none"/>
+          <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+          <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
+        </svg>
+      </span>
+    </div>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+
+    <button type="submit" class="btn-primary full-width">Sign Up</button>
+  </form>
+
+  <p class="form-note">
+    Already have an account? <a href="{{ url_for('user.login') }}" class="link-register">Login here</a>.
+  </p>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+{% endblock %}

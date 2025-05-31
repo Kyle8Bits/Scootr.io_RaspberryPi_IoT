@@ -1,0 +1,55 @@
+/* Reusable Button Styles */
+button, .cta-buttons a {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+/* Primary Filled Button */
+.btn-primary {
+    background-color: #2B3FAE;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #1f2e7a;
+}
+
+/* Outline Button */
+.btn-outline {
+    border: 2px solid #2B3FAE;
+    color: #2B3FAE;
+}
+
+.btn-outline:hover {
+    background-color: #2B3FAE;
+    color: white;
+}
+
+/* Home Button */
+.btn-home {
+    background-color: white;
+    color: #1C1C2C;
+    border: 2px solid #1C1C2C;
+}
+
+.btn-home:hover {
+    background-color: #1C1C2C;
+    color: white;
+}
+
+/* Pink Button */
+.btn-pink {
+    background-color: #D68AB5;
+    color: #1C1C2C;
+}
+
+.btn-pink:hover {
+    background-color: #C66FA0;
+}

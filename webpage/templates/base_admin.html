@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Admin | Scootr.io{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin_base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin_home.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin_table.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin_view_bookings.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+  <header class="admin-navbar">
+    <div class="admin-logo">
+      <a href="/admin_home">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Scootr.io Logo">
+      </a>
+      <h1>Scootr.io Admin</h1>
+    </div>
+    <nav class="admin-nav">
+      <button class="btn-outline" onclick="location.href='/admin/home'">Home</button>
+      <button class="btn-outline" onclick="location.href='/admin/scooters'">View Scooters</button>
+      <button class="btn-outline" onclick="location.href='/admin/users'">View Users</button>
+      <button class="btn-outline" onclick="location.href='/admin/issues'">Issues</button>
+      <button class="btn-outline" onclick="location.href='/admin/usage_history'">Usage History</button>
+      <button class="btn-outline" onclick="location.href='/admin/topups'">Top-Up History</button>
+      <button class="btn-pink" onclick="location.href='/logout'">Logout</button>
+    </nav>
+  </header>
+
+  <main class="admin-content">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

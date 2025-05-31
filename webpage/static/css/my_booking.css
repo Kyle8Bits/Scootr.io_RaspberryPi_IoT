@@ -1,0 +1,158 @@
+.booking-wrapper {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+  }
+  
+  .booking-heading {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    color: #1C1C2C;
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  
+  .booking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .booking-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 8px solid #CCC;
+  }
+  
+  .booking-card.waiting { border-color: #DBB06B; }
+  .booking-card.in-use  { border-color: #88BDF2; }
+  
+  .card-left h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .card-left p {
+    margin: 4px 0;
+    font-size: 0.95rem;
+    color: #333;
+  }
+  
+  .status-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 3px 10px;
+    border-radius: 12px;
+    text-transform: uppercase;
+  }
+  
+  .status-label.waiting {
+    background-color: #FFF1D6;
+    color: #8A5A00;
+  }
+  .status-label.in-use {
+    background-color: #DCEEFF;
+    color: #2563EB;
+  }
+  
+  .card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .card-actions form {
+    display: inline;
+  }
+  
+  .btn-primary {
+    background-color: #2B3FAE;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1f2f88;
+  }
+  
+  .btn-outline-red {
+    border: 2px solid #E74C3C;
+    color: #E74C3C;
+    background-color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .btn-outline-red:hover {
+    background-color: #E74C3C;
+    color: white;
+  }
+  
+  .no-bookings {
+    text-align: center;
+    color: #999;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+  }
+  .card-actions-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .btn-outline-green {
+    border: 2px solid #BADBA2;
+    color: #3a5c32;
+    background-color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .btn-outline-green:hover {
+    background-color: #BADBA2;
+    color: #1C1C2C;
+  }
+  
+  .btn-outline-red {
+    border: 2px solid #E39A7B;
+    color: #8b2b18;
+    background-color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .btn-outline-red:hover {
+    background-color: #E39A7B;
+    color: white;
+  }
+  

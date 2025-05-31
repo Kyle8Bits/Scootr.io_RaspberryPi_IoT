@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Engineer | Scootr.io{% endblock %}</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/engineer/engineer_base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/engineer/engineer_home.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/engineer/engineer_map.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/engineer/issue_detail.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/engineer/engineer_table.css') }}">
+
+</head>
+<body>
+
+  <!-- 🚀 Navbar -->
+  <header class="engineer-navbar">
+    <div class="engineer-logo">
+      <a href="/engineer_home">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Scootr.io Logo">
+      </a>
+      <h1>Engineer Panel</h1>
+    </div>
+
+    <div class="engineer-nav">
+      <button class="btn-outline" onclick="location.href='/engineer/engineer_home'">Home</button>
+      <button class="btn-outline" onclick="location.href='/engineer/scooters'">Reported Scooters</button>
+      <button class="btn-outline" onclick="location.href='/engineer/map'">Map View</button>
+      <button class="btn-outline" onclick="location.href='/engineer/report'">Report Result</button>
+      <button class="btn-pink" onclick="location.href='/logout'">Logout</button>
+    </div>
+
+  </header>
+  
+<!-- Flash Message -->
+<div id="flash-banner" class="flash-message hidden"></div>
+  <!-- 💻 Page Content -->
+  <main class="engineer-content">
+    {% block content %}{% endblock %}
+  </main>
+  {% block scripts %}{% endblock %}
+
+</body>
+</html>

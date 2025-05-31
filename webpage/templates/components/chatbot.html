@@ -1,0 +1,31 @@
+<!-- 📦 Chatbot Floating Icon & Window -->
+<div class="chatbot-container">
+    <img
+      src="{{ url_for('static', filename='chatbot.png') }}"
+      class="chatbot-icon"
+      onclick="toggleChatbot()"
+      alt="Chatbot"
+    />
+  
+    <div id="chatbotWindow" class="chatbot-window" style="display: none">
+      <div class="chatbot-header">
+        Ask ScootrBot 
+        <span class="close-btn" onclick="toggleChatbot()">×</span>
+      </div>
+      <div class="chatbot-messages" id="chatbotMessages"></div>
+      <div class="chatbot-input">
+        <input
+          type="text"
+          id="chatInput"
+          placeholder="Type your question..."
+          onkeypress="if(event.key === 'Enter') sendChat()"
+        />
+        <button onclick="sendChat()">Send</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Load chatbot logic -->
+  <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+  

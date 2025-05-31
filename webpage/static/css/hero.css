@@ -1,0 +1,48 @@
+/* -------------------------------
+   HERO SECTION
+-------------------------------- */
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 6rem 4rem;
+}
+
+.hero-content {
+    flex: 1;
+    min-width: 300px;
+    max-width: 520px;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #2B3FAE;
+    margin-bottom: 1.2rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    max-width: 540px;
+}
+
+.hero-image {
+    flex: 1;
+    min-width: 300px;
+    text-align: right;
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 500px;
+    animation: float 4s ease-in-out infinite;
+}
+
+.cta-buttons a {
+    margin-right: 1rem;
+    margin-top: 2rem;
+}

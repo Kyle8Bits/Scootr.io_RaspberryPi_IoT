@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Confirm Booking{% endblock %}
+
+{% block content %}
+
+{% if message %}
+  <div class="alert alert-warning">{{ message }}</div>
+{% endif %}
+
+<main class="confirmation-wrapper">
+  <section class="confirmation-container">
+    <h2 class="confirmation-title">Booking Confirmation</h2>
+
+    <img id="scooter-zoom" class="scooter-zoom" src="{{ scooter.image_url }}" alt="{{ scooter.make }}">
+    <div id="zoom-result" class="zoom-result"></div>
+
+    <div class="confirmation-details">
+      <p><strong>Scooter:</strong> {{ scooter.make }}</p>
+      <p><strong>Color:</strong> {{ scooter.color }}</p>
+      <p><strong>Location:</strong> {{ scooter.location }}</p>
+      <p><strong>Battery:</strong> {{ scooter.power_remaining }}%</p>
+      <p><strong>Cost Per Hour:</strong> ${{ scooter.cost_per_minute }}</p>
+      <p class="down-pay-price"><strong>Down Payment Price:</strong> $10.00</p>
+    </div>
+
+    <form id="booking-form" method="POST" action="{{ url_for('booking.book_scooter') }}" class="confirmation-actions">
+      <input type="hidden" name="scooter_id" value="{{ scooter.id }}">
+
+      <label for="date">Select Date:</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="time">Check-in Time:</label>
+      <input type="text" id="checkin-time" class="time-input" name="time" placeholder="Select time" required>
+
+      <button type="submit" class="btn-confirm">Confirm</button>
+      <a href="{{ url_for('booking.booking') }}" class="btn-cancel">Cancel</a>
+    </form>
+
+    <div class="comments-section">
+      <h3>Comments</h3>
+      {% if comments and comments|length > 0 %}
+        <ul class="comments-list">
+          {% for comment in comments|sort(attribute='id', reverse=true) %}
+            <li class="comment-item">
+              <p>{{ comment.context }}</p>
+              <small>From: {{ comment.username }}</small>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No comments for this scooter yet.</p>
+      {% endif %}
+    </div>
+
+    <form class="add-comment-section" method="POST" accept="{{ url_for('booking.add_comment') }}" id="add-comment-form">
+      <h4>Add a Comment</h4>
+      <input id="comment-text" name="comment" rows="3" placeholder="Write your comment here..." maxlength="200"></input>
+      <button id="submit-comment" type="submit">Add Comment</button>
+    </div>
+  </form>
+</main>
+
+<!-- Flatpickr Time Picker -->
+<link rel="stylesheet" href="{{ url_for('static', filename='booking_styles.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/confirm_booking.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+{% endblock %}

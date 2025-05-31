@@ -1,0 +1,68 @@
+{% extends "base_admin.html" %}
+{% block title %}Usage History | Scootr.io{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin_view_bookings.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="admin-section">
+  <h2>📈 Scooter Usage History</h2>
+
+  <!-- Stat Summary Cards -->
+  <div class="stat-cards">
+    <div class="stat-card">
+      <div class="stat-icon">🛴</div>
+      <div class="stat-info">
+        <h4>Total Rides</h4>
+        <p id="total-rides">0</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div class="stat-info"> 
+        <h4>Total Revenue</h4>
+        <p id="total-revenue">$0.00</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Filters & Export -->
+  <div class="toolbar">
+    <div class="filters">
+      <input type="text" placeholder="🔍 Search by Username..." id="search-username">
+    </div>
+    <button id="export-csv" class="btn-export">📄 Export CSV</button>
+  </div>
+
+  <!-- Usage Table -->
+  <table class="scooter-table" id="usage-table">
+    <thead>
+      <tr>
+        <th data-sort="username">User</th>
+        <th data-sort="scooter_make">Scooter</th>
+        <th data-sort="status">Status</th>
+        <th data-sort="checkout_time">Time</th>
+        <th>Duration</th>
+        <th data-sort="total_price">Cost</th>
+      </tr>
+    </thead>
+    <tbody id="usage-body">
+      <!-- Populated by JS -->
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button id="prev-page">⏮ Prev</button>
+    <span id="page-info">Page 1</span>
+    <button id="next-page">Next ⏭</button>
+  </div>
+</section>
+
+<!-- Booking data -->
+<script id="booking-data" type="application/json">{{ bookings | tojson }}</script>
+<script src="{{ url_for('static', filename='js/admin/admin_usage_history.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,180 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #F5F2EB;
+  color: #1C1C2C;
+}
+
+/* Header */
+.engineer-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F5F2EB;
+  padding: 12px 24px;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.engineer-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.engineer-logo h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  color: #2B3FAE;
+  margin: 0;
+}
+
+.engineer-logo img {
+  height: 48px;
+}
+
+/* Navigation */
+.engineer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  max-width: 100%;
+}
+
+button {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+/* Match user styles */
+.btn-outline {
+  background-color: white;
+  color: #2B3FAE;
+  border: 2px solid #2B3FAE;
+}
+
+.btn-outline:hover {
+  background-color: #2B3FAE;
+  color: white;
+}
+
+.btn-pink {
+  background-color: #D68AB5;
+  color: white;
+  border: none;
+}
+
+.btn-pink:hover {
+  background-color: #C66FA0;
+}
+
+/* Content */
+.engineer-content {
+  padding: 2rem;
+}
+
+/* ----------------------------------
+   Flash Message Banner (Server-Rendered + JS)
+---------------------------------- */
+.alert {
+  max-width: 800px;
+  margin: 1.5rem auto;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-align: center;
+  font-size: 1rem;
+  box-shadow: var(--shadow-light);
+  z-index: 1000;
+}
+
+.alert-success {
+  background: #E6F9F2;
+  color: #1F7A5D;
+  border: 1px solid #B2E5D1;
+}
+
+.alert-error {
+  background: #F8D7DA;
+  color: #721C24;
+  border: 1px solid #F5C6CB;
+}
+
+/* Optional fade-in effect */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------
+   JavaScript Flash Message Banner
+   (Positioned absolutely at top)
+---------------------------------- */
+#flash-banner {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  padding: 0.85rem 1.25rem;
+  background: #E6F9F2;
+  color: #1F7A5D;
+  border: 1px solid #B2E5D1;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-light);
+  font-weight: 600;
+  z-index: 2000;
+  animation: slideDown 0.3s ease-out;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ----------------------------------
+   Responsive Behavior
+---------------------------------- */
+@media (max-width: 768px) {
+  .engineer-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .engineer-logo {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .engineer-nav {
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .engineer-nav button {
+    flex: 1 1 calc(50% - 1rem);
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .engineer-nav button {
+    flex: 1 1 100%;
+  }
+
+  .engineer-logo h1 {
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+

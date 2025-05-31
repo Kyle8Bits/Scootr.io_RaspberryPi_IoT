@@ -1,0 +1,184 @@
+/* === General Theme === */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #F5F2EB;
+  color: #1C1C2C;
+  padding-bottom: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 1.5rem 0 1rem;
+  color: #2B3FAE;
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #C66FA0;
+  margin-top: 6px;
+  border-radius: 2px;
+}
+
+/* === Toolbar & Filters === */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filters input {
+  padding: 10px 14px;
+  font-size: 14px;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: box-shadow 0.2s ease;
+  min-width: 200px;
+}
+
+.filters input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(43, 63, 174, 0.2);
+}
+
+/* === Export Button === */
+.btn-export {
+  background-color: #2B3FAE;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 14px;
+}
+
+.btn-export:hover {
+  background-color: #1f2d80;
+}
+
+/* === Table === */
+.scooter-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  font-size: 15px;
+}
+
+.scooter-table thead {
+  background-color: #2B3FAE;
+  color: white;
+  border-radius: 12px;
+}
+
+.scooter-table th {
+  text-align: left;
+  padding: 14px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.scooter-table th:hover {
+  background-color: #1f2d80;
+}
+
+.scooter-table tbody tr {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.scooter-table tbody tr:hover {
+  transform: scale(1.01);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.scooter-table td {
+  padding: 14px 18px;
+  color: #1C1C2C;
+  border-bottom: 1px solid #eee;
+}
+
+/* === Status Tags === */
+.status-tag {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+  text-transform: capitalize;
+  transition: background 0.2s;
+}
+
+.status-tag.available {
+  background-color: #BADBA2;
+}
+
+.status-tag.in-use {
+  background-color: #88BDF2;
+}
+
+.status-tag.waiting {
+  background-color: #FFD3AC;
+}
+
+.status-tag.returned {
+  background-color: #DBB06B;
+}
+
+.status-tag.to-be-repaired {
+  background-color: #E39A7B;
+}
+
+/* === Pagination === */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 2rem;
+}
+
+.pagination button {
+  background-color: #C66FA0;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #a04c77;
+}
+
+#page-info {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #384959;
+}

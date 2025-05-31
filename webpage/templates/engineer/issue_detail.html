@@ -1,0 +1,48 @@
+{% extends "base_engineer.html" %}
+
+{% block title %}Engineer Dashboard{% endblock %}
+{% block content %}
+<!-- Flash Message -->
+<div id="flash-banner" class="flash-message hidden"></div>
+
+<div class="issue-details-wrapper">
+    <div class="issue-details-container">
+      <h2 class="issue-details-title">Scooter Issue Details</h2>
+  
+      <div class="issue-info">
+        <p><strong>Issue ID:</strong> {{ issue.id }}</p>
+        <p><strong>Reported At:</strong> {{ issue.reported_at }}</p>
+        <p><strong>Status:</strong> {{ issue.status }}</p>
+        <p><strong>Issue Type:</strong> {{ issue.issue_type }}</p>
+        <p><strong>Details:</strong> {{ issue.additional_details or 'N/A' }}</p>
+        <!-- <p><strong>Reported By:</strong> Customer #{{ issue.customer_id }}</p> -->
+      </div>
+  
+      <hr>
+  
+      <h3 class="issue-details-title">Scooter Information</h3>
+      <div class="scooter-info">
+        <img src="{{ scooter.image_url }}" alt="Scooter Image" style="max-width: 100%; border-radius: 8px; margin-bottom: 1rem;">
+        <p><strong>Scooter ID:</strong> {{ scooter.id }}</p>
+        <p><strong>Make:</strong> {{ scooter.make }}</p>
+        <p><strong>Location:</strong> {{ scooter.location }}</p>
+        <p><strong>Battery:</strong> {{ scooter.power_remaining }}%</p>
+        <p><strong>Cost Per Minute:</strong> ${{ scooter.cost_per_minute }}</p>
+        <!-- <p><strong>Status:</strong> {{ scooter.status }}</p> -->
+      </div>
+  
+      <div class="issue-actions">
+        <button type="button"
+          onclick="getDirections({{ issue.latitude }}, {{ issue.longitude }})"
+          class="btn-outline">
+          Get Directions
+        </button>
+        <a href="{{ url_for('engineer.map_view') }}" class="btn-back">Back to Map</a>
+      </div> 
+    </div>
+  </div>
+
+  <script 
+    src="{{ url_for('static', filename='js/engineer/issue_detail.js') }}">
+  </script>
+  {% endblock %}

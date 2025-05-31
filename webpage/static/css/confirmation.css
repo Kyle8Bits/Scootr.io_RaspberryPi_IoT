@@ -1,0 +1,192 @@
+/* -------------------------------
+   CONFIRMATION BILL - Updated
+-------------------------------- */
+
+.confirmation-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem 1rem;
+    background-color: #f5f2eb;
+}
+
+.confirmation-container {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    animation: fadeInUp 0.6s ease;
+}
+
+.confirmation-title {
+    font-size: 2.2rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #2B3FAE;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+}
+
+.confirmation-details {
+    background-color: #f8f9fb;
+    padding: 1.75rem;
+    border-radius: 16px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    font-family: 'Inter', sans-serif;
+}
+
+.img-zoom-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.zoom-result {
+    position: absolute;
+    border: 3px solid #888;
+    width: 150px;
+    height: 150px;
+    display: none;
+    background-repeat: no-repeat;
+    background-size: 300% 300%;
+    border-radius: 50%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.scooter-zoom {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    max-height: 200px;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+}
+
+.confirmation-details p {
+    margin: 0.6rem 0;
+    color: #1C1C2C;
+}
+
+.confirmation-details .total-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    color: #2B3FAE;
+}
+
+.confirmation-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.btn-confirm, .btn-cancel {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.9rem 2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    min-width: 120px;
+    text-align: center;
+}
+
+.btn-confirm {
+    background-color: #2B3FAE;
+    color: #ffffff;
+}
+
+.btn-confirm:hover {
+    background-color: #1f2e7a;
+}
+
+.btn-cancel {
+    background-color: #FFE5D0;
+    color: #8A2C0D;
+}
+
+.btn-cancel:hover {
+    background-color: #f3b690;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comments-section {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.comments-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  list-style-type: none;
+  margin: 0; /* remove default ul margin */
+}
+
+.comment-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.comment-item p {
+  margin: 0 0 4px 0;
+  font-style: italic;
+  color: #444;
+}
+
+.comment-item small {
+  color: #888;
+}
+
+.add-comment-section {
+  margin-top: 20px;
+}
+
+#comment-text {
+  width: 100%;
+  padding: 8px;
+  resize: vertical;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#submit-comment {
+  margin-top: 8px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#submit-comment:hover {
+  background-color: #b14278;
+}

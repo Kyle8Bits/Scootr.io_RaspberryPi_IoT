@@ -1,0 +1,51 @@
+/* -------------------------------
+   NAVBAR
+-------------------------------- */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F5F2EB;
+    padding: 12px 24px;
+}
+
+.navbar img {
+    width: 140px;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 16px;
+}
+.user-balance {
+    font-weight: 600;
+    color: #2B3FAE; /* Indigo text */
+    padding: 6px 12px;
+    background-color: #E6EDFA; /* Soft blue tone background */
+    border: 2px solid #2B3FAE; /* Indigo border */
+    border-radius: 8px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+  }
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .logo-section img {
+    width: 140px;
+  }
+
+  #qr-code-scanner{
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+  }
+
+
+  #qr-code-scanner:hover{
+      background-color: #2B3FAE;
+  }

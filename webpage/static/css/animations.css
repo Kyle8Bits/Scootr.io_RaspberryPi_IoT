@@ -1,0 +1,52 @@
+/* -------------------------------
+   EFFECTS & ANIMATIONS
+-------------------------------- */
+
+/* section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease-out;
+}
+
+section.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+} */
+
+.animated-bg::before {
+    content: '';
+    position: fixed;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    background: #C66FA0;
+    border-radius: 50%;
+    z-index: -1;
+    animation: pulse 6s infinite ease-in-out;
+}
+
+.parallax {
+    background: linear-gradient(180deg, #F5F2EB 0%, #fff 100%);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 0.2; }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

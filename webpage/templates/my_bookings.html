@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}My Bookings{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/my_booking.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="booking-wrapper">
+  <h2 class="booking-heading">📋 My Active Bookings</h2>
+
+  {% if bookings %}
+    <div class="booking-list">
+      {% for b in bookings %}
+        <div class="booking-card {{ b.status|lower }}">
+          <div class="card-left">
+            <h3>
+              {{ b.make }} 
+              <span class="status-label {{ b.status|lower }}">
+                {{ b.status|capitalize }}
+              </span>
+            </h3>
+            <p><strong>Color:</strong> {{ b.color }} | <strong>Location:</strong> {{ b.location }}</p>
+            <p><strong>Date:</strong> {{ b.rent_date }} | <strong>Check-in:</strong> {{ b.checkin_time or '–' }}</p>
+
+            {% if b.status in ['in-use', 'returned'] %}
+              <p><strong>Checkout:</strong> {{ b.checkout_time or '–' }}</p>
+            {% endif %}
+
+            {% if b.cost %}
+              <p><strong>Total Price:</strong> ${{ '%.2f'|format(b.cost) }}</p>
+            {% endif %}
+          </div>
+
+          <div class="card-actions-row">
+            {% if b.status == 'waiting' %}
+              <form action="{{ url_for('user.checkin_booking', booking_id=b.id) }}" method="POST">
+                <button class="btn-outline-green" type="submit" onclick="return confirm('Check in to this scooter now?')">
+                  Check In
+                </button>
+              </form>
+            {% endif %}
+
+            <form action="{{ url_for('user.cancel_booking', booking_id=b.id) }}" method="POST">
+              <button class="btn-outline-red" type="submit" onclick="return confirm('Are you sure you want to cancel this booking?')">
+                Cancel Booking
+              </button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="no-bookings">You have no active bookings at the moment.</p>
+  {% endif %}
+</div>
+{% endblock %}

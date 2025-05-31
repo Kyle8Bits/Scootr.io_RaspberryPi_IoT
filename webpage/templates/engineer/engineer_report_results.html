@@ -1,0 +1,57 @@
+{% extends "base_engineer.html" %}
+{% block title %}Report Results | Scootr.io{% endblock %}
+
+{% block content %}
+<section class="engineer-section">
+  <h2>📋 My Resolution Reports</h2>
+
+  <div class="toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+    <span></span>
+    <button class="btn-map" onclick="downloadCSV()">📄 Export to CSV</button>
+  </div>
+
+  <div class="table-container">
+    <table id="report-table">
+      <thead>
+        <tr>
+          <th>Issue ID</th>
+          <th>Scooter ID</th>
+          <th>Issue Type</th>
+          <th>Resolved At</th>
+          <th>Resolution Time</th>
+          <th>Resolution Type</th>
+          <th>Details</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="report-body">
+        <!-- Injected by JS -->
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <button id="prev-page">⏮ Prev</button>
+      <span id="page-info">Page 1</span>
+      <button id="next-page">Next ⏭</button>
+    </div>
+  </div>
+</section>
+
+<!-- Scooter Info Modal -->
+<div class="modal hidden" id="scooter-modal">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeScooterModal()">×</button>
+    <h3>🛴 Scooter Details</h3>
+    <div id="scooter-details"></div>
+    <div class="modal-buttons">
+      <button class="btn-close-modal" onclick="closeScooterModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="flash-banner" class="alert alert-success hidden"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/engineer/report_results.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base_engineer.html" %}
+{% block title %}Engineer Dashboard | Scootr.io{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+  <h2>📊 Engineer Dashboard</h2>
+
+  <div class="dashboard-grid">
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <div class="stats-container">
+        <div class="stat-card">🔧 <strong>Assigned:</strong> <span id="assigned-count">--</span></div>
+        <div class="stat-card">✅ <strong>Resolved:</strong> <span id="resolved-count">--</span></div>
+        <div class="stat-card">🔋 <strong>Battery:</strong> <span id="battery-avg">--</span>%</div>
+        <div class="stat-card">⏱ <strong>Avg. Time:</strong> <span id="avg-resolution">--</span> mins</div>
+      </div>
+
+      <div class="insight-box">
+        <h4>📈 Insights</h4>
+        <p><strong>Most Common Fix:</strong> <span id="top-resolution-type">--</span></p>
+        <p><strong>⚠️ Lowest Battery:</strong> <span id="lowest-battery">--</span>%</p>
+      </div>
+
+      <div class="chart-wrapper">
+        <canvas id="resolution-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="status-summary">
+        <h4>📍 Status Overview:</h4>
+        <div id="status-stats" class="status-badges"></div>
+      </div>
+
+      <div class="quick-actions">
+        <h4>⚡ Quick Actions:</h4>
+        <a href="/engineer/scooters" class="btn-quick">🛠 Reported Scooters</a>
+        <a href="/engineer/map" class="btn-quick">🗺️ Map View</a>
+        <a href="/engineer/report" class="btn-quick">📁 Report Results</a>
+      </div>
+
+      <div class="recent-section">
+        <h4>🕒 Recent Resolutions:</h4>
+        <ul id="recent-resolutions" class="resolution-list"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/engineer/engineer_home.js') }}"></script>
+{% endblock %}

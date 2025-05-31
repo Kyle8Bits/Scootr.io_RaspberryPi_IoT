@@ -1,0 +1,76 @@
+{% extends "base_admin.html" %}
+{% block title %}Scooter Issues | Scootr.io{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin_tables.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Flash Message -->
+<div id="flash-banner" class="alert alert-success hidden"></div>
+
+<section class="admin-section">
+  <h2>🧾 Scooter Issue Reports</h2>
+
+  <div class="toolbar">
+    <div class="filters">
+      <label for="status-filter">Filter by status:</label>
+      <select id="status-filter" onchange="filterByStatus()">
+        <option value="all">All</option>
+        <option value="open">Open</option>
+        <option value="approved">Approved</option> <!-- ✅ updated -->
+      </select>
+    </div>
+  </div>
+
+  <table id="issue-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Scooter ID</th>
+        <th>Customer ID</th>
+        <th>Issue Type</th>
+        <th>Details</th>
+        <th>Reported At</th>
+        <th>Status</th>
+        <th>Last Updated</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="issue-body">
+      <!-- Filled by JS -->
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <button id="prev-page">⏮ Prev</button>
+    <span id="page-info">Page 1</span>
+    <button id="next-page">Next ⏭</button>
+  </div>
+</section>
+
+<!-- User Profile Modal -->
+<div class="modal hidden" id="user-modal">
+  <div class="modal-content" id="user-modal-content">
+    <span class="close-modal" onclick="closeModal()">×</span>
+    <h3>👤 User Info</h3>
+    <div id="user-details"></div>
+    <button class="modal-close" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<!-- Approve Confirmation Modal -->
+<div class="modal hidden" id="resolve-modal">
+  <div class="modal-content">
+    <h3>Mark as Approved?</h3>
+    <p>Are you sure you want to mark this issue as approved?</p>
+    <div class="modal-buttons">
+      <button id="resolve-yes" class="btn-submit">Yes, Approve</button>
+      <button id="resolve-no" class="btn-close-modal">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/admin/issue_reports.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Scootr.io | Smart Mobility for Cities{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Animated Accent Shapes -->
+<div class="animated-bg"></div>
+
+<!-- HERO SECTION -->
+
+<section class="hero fade-in">
+  <div class="hero-content">
+    <h1>Scootr.io</h1>
+    <p>The smarter way to move. Real-time scooter sharing powered by IoT, built for fast, flexible, and sustainable transport.</p>
+    <div class="cta-buttons">
+      <a href="/login" class="btn-primary">Login</a>
+      <a href="/register" class="btn-outline">Register</a>
+    </div>
+  </div> 
+
+  <div class="hero-image">
+    <img src="{{ url_for('static', filename='scooter-illustration.png') }}" alt="Scooter Illustration">
+  </div>
+</section>
+
+
+
+<!-- WHY SCOOTR.IO -->
+<section class="why fade-in">
+  <h2>Why Scootr.io?</h2>
+  <div class="why-cards">
+    {% for item in ['Sustainable Transportation', 'Cloud-Connected System', 'Secure Login & Booking', 'Real-Time Availability'] %}
+    <div class="why-card hover-card">
+      <h3>{{ item }}</h3>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <h2>Core Features</h2>
+  <div class="features-grid">
+    {% for feature in [
+      {'title': 'Cloud Registration', 'desc': 'Secure signup with encrypted credentials stored in GCP.'},
+      {'title': 'Live Scooter Data', 'desc': 'Battery, availability, and location updates in real-time.'},
+      {'title': 'Google Calendar Integration', 'desc': 'Bookings are synced to user calendars automatically.'},
+      {'title': 'Smart Billing', 'desc': 'Dynamic cost calculation based on usage time.'},
+      {'title': 'Usage History', 'desc': 'Customers can review ride history with details.'},
+      {'title': 'Issue Reporting', 'desc': 'Users can flag malfunctioning scooters directly.'}
+    ] %}
+    <div class="feature-card hover-card">
+      <h3>{{ feature.title }}</h3>
+      <p>{{ feature.desc }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ABOUT PROJECT -->
+<section class="about fade-in">
+  <h2>About the Project</h2>
+  <p>
+    Scootr.io was developed for COSC2790 – Programming IoT. It is a full-stack IoT-powered scooter sharing platform using Flask, Google Cloud, socket programming, and Sense HAT for real-time updates. The system features secure login, scooter booking, billing, and live status display.
+  </p>
+</section>
+
+<!-- TEAM SECTION -->
+<section class="team fade-in">
+  <h2>Meet the Developers</h2>
+  <div class="team-grid">
+    {% for member in [
+      {'name': 'Mai Dang Khoa', 'id': 'S3974876', 'img': 'khoa.jpg'},
+      {'name': 'Shirin Shujaa', 'id': 'S3983427', 'img': 'shirin.png'},
+      {'name': 'Trinh Phuong Thao', 'id': 'S3979297', 'img': 'thao.png'}
+    ] %}
+    <div class="team-card hover-card">
+      <img src="{{ url_for('static', filename='team/' + member.img) }}" alt="{{ member.name }}">
+      <h4>{{ member.name }}</h4>
+      <p>{{ member.id }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% include "components/chatbot.html" %}
+
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/landing.js') }}"></script>
+{% endblock %}

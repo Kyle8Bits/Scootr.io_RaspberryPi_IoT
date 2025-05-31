@@ -1,0 +1,72 @@
+{% extends "base_admin.html" %}
+{% block title %}Admin Dashboard | Scootr.io{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin_home.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+  <h2>📊 Admin Dashboard</h2>
+
+  <!-- Stat Cards -->
+  <div class="dashboard-cards">
+    <div class="dashboard-card">
+      <h3>💰 Total Revenue</h3>
+      <p id="total-revenue">$0.00</p>
+    </div>
+    <div class="dashboard-card">
+      <h3>🛵 Total Rides</h3>
+      <p id="total-rides">0</p>
+    </div>
+    <div class="dashboard-card">
+      <h3>👥 Total Customers</h3>
+      <p id="total-customers">0</p>
+    </div>
+    <div class="dashboard-card">
+      <h3>🔧 Total Scooters</h3>
+      <p id="total-scooters">0</p>
+    </div>
+  </div>
+
+  <!-- Chart Controls -->
+  <div class="chart-controls">
+    <label for="chart-toggle">View:</label>
+    <select id="chart-toggle">
+      <option value="daily">Daily</option>
+      <option value="weekly">Weekly</option>
+    </select>
+
+    <label for="type-toggle">Chart:</label>
+    <select id="type-toggle">
+      <option value="bar">Bar</option>
+      <option value="line">Line</option>
+    </select>
+  </div>
+
+  <!-- Chart Area -->
+  <div class="chart-container">
+    <canvas id="usageChart" width="800" height="400"></canvas>
+  </div>
+
+  <!-- Actions Below Chart -->
+  <div class="chart-actions">
+    <button id="downloadChart">Download Chart</button>
+    <p id="chart-summary" class="chart-summary"></p>
+  </div>
+  
+  <div class="dashboard-subsection">
+    <h3>🏆 Top 5 Most Used Scooters</h3>
+    <div class="chart-container">
+      <canvas id="topScootersChart" height="300"></canvas>
+    </div>
+  </div>
+</section>
+
+
+
+
+<script src="{{ url_for('static', filename='js/admin/admin_home.js') }}"></script>
+{% endblock %}

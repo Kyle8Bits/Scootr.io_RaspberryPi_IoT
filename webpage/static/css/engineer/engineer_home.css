@@ -1,0 +1,142 @@
+.dashboard {
+  padding: 2rem 4rem;
+  background-color: #f5f2eb;
+  font-family: 'Poppins', sans-serif;
+  color: #1C1C2C;
+}
+
+.dashboard h2 {
+  font-size: 2rem;
+  color: #2B3FAE;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1C1C2C;
+  margin-bottom: 0.6rem;
+  border-left: 4px solid #2B3FAE;
+  padding-left: 0.5rem;
+}
+
+/* Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2.5rem;
+}
+
+.left-panel, .right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Stats */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+
+.stat-card {
+  background: #ffffff;
+  padding: 1.2rem 1.5rem;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* Chart */
+.chart-wrapper {
+  background: #fff;
+  padding: 1.2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  max-width: 100%;
+}
+.chart-wrapper canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Insights */
+.insight-box {
+  background: #fff;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  font-size: 0.95rem;
+}
+
+/* Quick Actions */
+.btn-quick {
+  background-color: #2B3FAE;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 500;
+  margin-right: 0.5rem;
+  display: inline-block;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
+
+.btn-quick:hover {
+  background-color: #1f2f87;
+}
+
+/* Status badges */
+.status-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.status-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #b14278;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+.status-badge.to-be-repaired { background-color: #f56565; }
+.status-badge.under-repair { background-color: #f6ad55; }
+.status-badge.resolved { background-color: #48bb78; }
+.status-badge.open { background-color: #4299e1; }
+.status-badge.pending { background-color: #ed8936; }
+
+/* Resolutions */
+.resolution-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.resolution-list li {
+  background: #ffffff;
+  padding: 0.8rem 1rem;
+  border-left: 5px solid #2B3FAE;
+  margin-bottom: 0.6rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: background 0.2s;
+}
+.resolution-list li:hover {
+  background: #f1f5fb;
+}
+
+/* Responsive */
+@media (max-width: 950px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}

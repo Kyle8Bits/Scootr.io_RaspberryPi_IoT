@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Booking History{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/History.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="history-wrapper">  
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="download-message">
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  <!-- Back Button + Heading -->
+  <div class="history-header">
+    <a href="{{ url_for('profile.profile') }}" class="btn-outline back-btn">
+      ← Back to Profile
+    </a>
+    <h2 class="history-heading">Booking History</h2>
+  </div>
+
+  <!--  Filter + Sort -->
+  <div class="history-controls">
+    <select id="filter-status">
+      <option value="all">Show All</option>
+      <option value="returned">Returned</option>
+      <option value="in-use">In-Use</option>
+      <option value="waiting">Waiting</option>
+      <option value="canceled">Canceled</option>
+    </select>
+
+    <select id="sort-order">
+      <option value="desc">Newest First</option>
+      <option value="asc">Oldest First</option>
+    </select>
+  </div>
+
+  <!-- 📦 Booking Cards -->
+  {% if bookings %}
+    <div class="history-list" id="history-list">
+      {% for b in bookings %}
+        <div class="history-card {{ b.status|lower }}" 
+             data-status="{{ b.status|lower }}" 
+             data-date="{{ b.date }}">
+          <div class="card-content">
+            <div class="left-info">
+              <h3>{{ b.make }}
+                <span class="status-badge {{ b.status|lower }}">
+                  {% if b.status == 'waiting' %}⏱{% elif b.status == 'returned' %}✅{% elif b.status == 'canceled' %}❌{% elif b.status == 'in-use' %}🛵{% endif %}
+                  {{ b.status.upper() }}
+                </span>
+              </h3>
+              <p><strong>Color:</strong> {{ b.color }} | <strong>Location:</strong> {{ b.location }}</p>
+              <p><strong>Date:</strong> {{ b.date }} | <strong>Time:</strong> {{ b.time or "—" }}</p>
+            </div>
+            <div class="right-info">
+              <p><strong>Checkout:</strong> {{ b.checkout_time or "—" }}</p>
+              <p><strong>Cost:</strong> ${{ "%.2f"|format(b.cost) }}</p>
+              {% if b.time and b.checkout_time %}
+                {% set in_parts = b.time.split(":") %}
+                {% set out_parts = b.checkout_time.split(":") %}
+                {% set duration_mins = (out_parts[0]|int * 60 + out_parts[1]|int) - (in_parts[0]|int * 60 + in_parts[1]|int) %}
+                {% set hours = duration_mins // 60 %}
+                {% set mins = duration_mins % 60 %}
+                <p><strong>Duration:</strong> {{ hours }}h {{ mins }}m</p>
+              {% endif %}
+
+              {% if b.status == 'returned' %}
+              <form action="{{ url_for('profile.download_invoice', booking_id=b.id) }}" method="get">
+                  <button class="btn-primary" type="submit"> Print Invoice PDF</button>
+                </form>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="no-history">No bookings found.</p>
+  {% endif %}
+</main>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/history.js') }}"></script>
+{% endblock %}

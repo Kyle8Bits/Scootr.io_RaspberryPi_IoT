@@ -1,0 +1,83 @@
+{% extends "base_engineer.html" %}
+
+{% block title %}Engineer Dashboard{% endblock %}
+
+{% block content %}
+  <div id="map" data-icon="{{ url_for('static', filename='mapMarker.png') }}" style="height: 500px; width: 100%;"></div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+
+  <script>
+    // Fetch all issues from backend
+    async function fetchIssues() {
+      const response = await fetch("/engineer/map/issues");
+      console
+      return await response.json();
+    }
+
+    // Initialize Google Map
+    async function initMap() {
+      const iconUrl = document.getElementById("map").dataset.icon;
+      const center = { lat: 10.762622, lng: 106.660172 };
+
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 14,
+        center: center,
+      });
+
+      const issues = await fetchIssues();
+
+      issues.forEach(issue => {
+        if (issue.latitude && issue.longitude) {
+          const marker = new google.maps.Marker({
+            position: { lat: parseFloat(issue.latitude), lng: parseFloat(issue.longitude) },
+            map: map,
+            title: `Scooter ${issue.scooter_id} Issue`,
+            icon: {
+              url: iconUrl,
+              scaledSize: new google.maps.Size(40, 40),
+              anchor: new google.maps.Point(20, 40),
+            }
+          });
+
+          const infoWindow = new google.maps.InfoWindow({
+            content: `
+            <div class="scooter-card">
+              <h3>Scooter ID #${issue.scooter_id}</h3>
+              <p><strong>Issue:</strong> ${issue.issue_type}</p>
+              <p><strong>Details:</strong> ${issue.additional_details || 'N/A'}</p>
+              <p><strong>Status:</strong> ${issue.status}</p>
+              <p><strong>Reported:</strong> ${issue.reported_at}</p>
+            </div>
+            <div class="button-group">
+              <button onclick="window.location.href='/engineer/issue?issue_id=${issue.id}&scooter_id=${issue.scooter_id}'"
+                class="btn-outline">
+                View Details
+              </button>
+              <button onclick="getDirections(${issue.latitude}, ${issue.longitude})" class="btn-outline">
+                Get Directions
+              </button>
+            </div>
+          `
+
+          });
+
+          marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+          });
+        }
+      });
+    }
+
+    // Ensure initMap is accessible
+    window.initMap = initMap;
+  </script>
+  <script 
+    src="{{ url_for('static', filename='js/engineer/map_view.js') }}">
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap">
+  </script>
+{% endblock %}

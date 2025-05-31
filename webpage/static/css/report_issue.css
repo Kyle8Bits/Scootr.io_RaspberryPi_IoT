@@ -1,0 +1,88 @@
+/* -------------------------------
+   REPORT ISSUE PAGE
+-------------------------------- */
+
+.report-container {
+    max-width: 600px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  }
+  
+  .report-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #2B3FAE;
+  }
+  
+  .report-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .report-form .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .report-form label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1C1C2C;
+  }
+  
+  .report-form input,
+  .report-form select,
+  .report-form textarea {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+  }
+  
+  .report-form input[readonly] {
+    background-color: #f5f5f5;
+  }
+  
+  .report-form textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  .success-message {
+    margin-top: 1rem;
+    background: #BADBA2;
+    color: #2E5902;
+    padding: 1rem;
+    border-left: 6px solid #2E5902;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .success-message {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: #BADBA2;
+    color: #2E5902;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 1s ease;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* Optional nice fade in */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  

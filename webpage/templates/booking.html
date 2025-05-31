@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Booking{% endblock %}
+
+{% block content %}
+<main>
+  <section class="booking fade-in visible">
+    <h2>Available Scooters</h2>
+
+    {% if message %}
+      <div class="booking-message">{{ message }}</div>
+    {% endif %}
+
+    <!-- 🔍 Search + Sort Controls -->
+    <div class="booking-controls">
+      <input type="text" id="search-bar" placeholder="Search by make, color, or location...">
+      <select id="sort-select">
+        <option value="">Sort by...</option>
+        <option value="make">Make (A-Z)</option>
+        <option value="battery">Battery (High → Low)</option>
+        <option value="price">Cost (Low → High)</option>
+      </select>
+    </div>
+
+    <div class="scooter-grid">
+      {% for scooter in scooters %}
+        <div class="scooter-card"
+           data-make="{{ scooter.make }}"
+           data-color="{{ scooter.color }}"
+           data-location="{{ scooter.location }}"
+           data-battery="{{ scooter.power_remaining }}"
+           data-price="{{ scooter.cost_per_minute }}">
+
+
+        <img src="{{ scooter.image_url }}" alt="{{ scooter.make }}">
+        <h3>{{ scooter.make }}</h3>
+        <p><strong>Color:</strong> {{ scooter.color }}</p>
+        <p><strong>Location:</strong> {{ scooter.location }}</p>
+        <p><strong>Battery:</strong> {{ scooter.power_remaining }}%</p>
+        <p><strong>Cost Per Hour:</strong> {{ scooter.cost_per_minute }} USD</p>
+
+        <!-- "Book Now" Button -->
+        <button type="button" class="book-now-btn" onclick="location.href='/confirm_booking?scooter_id={{ scooter.id }}'">Book Now</button>
+          <!-- "Report Issue" Button -->
+        <button type="button" class="report-issue-btn" onclick="location.href='/report_issue?scooter_id={{ scooter.id }}'">
+        Report Issue
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+
+<script>
+  // ✅ Search + Sort Logic
+  const searchBar = document.getElementById('search-bar');
+  const sortSelect = document.getElementById('sort-select');
+  const cards = Array.from(document.querySelectorAll('.scooter-card'));
+  const grid = document.querySelector('.scooter-grid');
+
+  function updateDisplay() {
+    const query = searchBar.value.toLowerCase();
+    const sort = sortSelect.value;
+
+    // Filter
+    cards.forEach(card => {
+      const text = `${card.dataset.make} ${card.dataset.color} ${card.dataset.location}`.toLowerCase();
+      card.style.display = text.includes(query) ? 'block' : 'none';
+    });
+
+    // Sort
+    let filtered = cards.filter(card => card.style.display !== 'none');
+    if (sort === 'make') {
+      filtered.sort((a, b) => a.dataset.make.localeCompare(b.dataset.make));
+    } else if (sort === 'battery') {
+      filtered.sort((a, b) => b.dataset.battery - a.dataset.battery);
+    } else if (sort === 'price') {
+      filtered.sort((a, b) => a.dataset.price - b.dataset.price);
+    }
+
+    filtered.forEach(card => grid.appendChild(card)); // Reorder DOM
+  }
+
+  searchBar.addEventListener('input', updateDisplay);
+  sortSelect.addEventListener('change', updateDisplay);
+</script>
+
+{% endblock %}

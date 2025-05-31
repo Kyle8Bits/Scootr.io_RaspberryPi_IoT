@@ -1,0 +1,22 @@
+/* -------------------------------
+   ABOUT SECTION
+-------------------------------- */
+
+.about {
+    padding: 6rem 3rem 3rem;
+    background-color: #fff;
+    text-align: center;
+}
+
+.about h2 {
+    font-size: 2.5rem;
+    color: #2B3FAE;
+    margin-bottom: 1rem;
+}
+
+.about p {
+    max-width: 860px;
+    margin: 0 auto;
+    font-size: 1.15rem;
+    line-height: 1.75;
+}

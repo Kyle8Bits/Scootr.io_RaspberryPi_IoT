@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #F5F2EB;
+  color: #1C1C2C;
+}
+
+/* Header */
+.admin-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F5F2EB;
+  padding: 12px 24px;
+}
+
+.admin-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin-logo h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  color: #2B3FAE;
+  margin: 0;
+}
+
+.admin-logo img {
+  height: 48px;
+}
+
+/* Navigation */
+.admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+button {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Match user styles */
+.btn-outline {
+  background-color: white;
+  color: #2B3FAE;
+  border: 2px solid #2B3FAE;
+}
+
+.btn-outline:hover {
+  background-color: #2B3FAE;
+  color: white;
+}
+
+.btn-pink {
+  background-color: #D68AB5;
+  color: white;
+  border: none;
+}
+
+.btn-pink:hover {
+  background-color: #C66FA0;
+}
+
+/* Content */
+.admin-content {
+  padding: 2rem;
+}

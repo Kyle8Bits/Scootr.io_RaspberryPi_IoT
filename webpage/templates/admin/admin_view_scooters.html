@@ -1,0 +1,128 @@
+{% extends "base_admin.html" %}
+{% block title %}View All Scooters | Admin{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin_tables.css') }}">
+{% endblock %}
+
+
+{% block content %}
+  {% if request.args.get('message') %}
+    <div class="alert alert-success">
+      {{ request.args.get('message') }}
+    </div>
+  {% endif %}
+
+
+  <h2>🛴 All Scooters</h2>
+
+  <div class="toolbar">
+    <div class="filters">
+      <input type="text" placeholder="🔍 Search by Make..." id="search-make">
+
+      <select id="filter-status">
+        <option value="">All Statuses</option>
+        <option>Available</option>
+        <option>In_use</option>
+        <option>Booked</option>
+        <option>Returned</option>
+        <option>To_Be_Repaired</option>
+      </select>
+
+      <select id="filter-zone">
+        <option value="">All Zones</option>
+        {% for z in zones %}
+          <option>{{ z.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="actions">
+      <button id="btn-add-scooter" class="btn-add">➕ Add New Scooter</button>
+      <button id="export-csv" class="btn-export">📄 Export CSV</button>
+    </div>
+  </div>
+
+  <table id="scooter-table">
+    <thead>
+      <tr>
+        <th data-sort="id">ID 🔽</th>
+        <th data-sort="make">Make</th>
+        <th data-sort="color">Color</th>
+        <th data-sort="status">Status</th>
+        <th data-sort="power_remaining">⚡ Power</th>
+        <th data-sort="location">📍 Zone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="scooter-body"></tbody>
+  </table>
+
+  <div class="pagination">
+    <button id="prev-page">⏮ Prev</button>
+    <span id="page-info">Page 1</span>
+    <button id="next-page">Next ⏭</button>
+  </div>
+
+  <!-- Modal for Add/Edit Scooter -->
+  <div id="scooter-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-modal" id="close-modal">&times;</span>
+      <h3 id="modal-title">Add New Scooter</h3>
+
+      <form id="scooter-form" data-mode="add">
+        <input type="hidden" id="scooter-id" name="scooter_id">
+
+        <div class="form-group">
+          <input type="text" id="scooter-make" name="make" placeholder="Make" required>
+        </div>
+        <div class="form-group">
+          <input type="text" id="scooter-color" name="color" placeholder="Color" required>
+        </div>
+        <div class="form-group">
+          <input type="number" id="scooter-power" name="battery" placeholder="Battery %" min="0" max="100" required>
+        </div>
+        <div class="form-group">
+          <input type="number" id="scooter-cost" name="cost" placeholder="Cost/minute" step="0.1" required>
+        </div>
+
+        <div class="form-group">
+          <select id="scooter-zone" name="zone_id" required>
+            <option value="">Select Zone…</option>
+            {% for z in zones %}
+              <option value="{{ z.id }}">{{ z.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <select id="scooter-status" name="status" required>
+            <option value="available">Available</option>
+            <option value="in-use">In-use</option>
+            <option value="waiting">Waiting</option>
+            <option value="returned">Returned</option>
+            <option value="to-be-repaired">To be Repaired</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-submit">Save Scooter</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="confirm-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Confirm Deletion</h3>
+      <p>Are you sure you want to delete this scooter?</p>
+      <div class="modal-buttons">
+        <button id="confirm-yes" class="btn-submit">Yes, Delete</button>
+        <button id="confirm-no" class="btn-close-modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script id="scooter-data" type="application/json">{{ scooters | tojson }}</script>
+  <script src="{{ url_for('static', filename='js/admin/admin_view_scooters.js') }}"></script>
+{% endblock %}

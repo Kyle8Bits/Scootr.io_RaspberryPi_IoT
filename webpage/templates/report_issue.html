@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block title %}Report Issue{% endblock %}
+
+{% block content %}
+<main class="report-container fade-in visible">
+  <h2 class="report-title"><i class="icon-alert-circle"></i> Report an Issue</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-container">
+        {% for category, message in messages %}
+          <div class="flash-message {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <form id="report-form" class="report-form" method="POST" action="{{ url_for('report.submit_issue') }}">
+    <div class="form-group">
+      <label for="scooter_id">Scooter ID</label>
+      <input type="text" id="scooter_id" name="scooter_id" value="{{ scooter_id or '' }}" required readonly>
+    </div>
+
+    <div class="form-group">
+      <label for="issue_type">Issue Type</label>
+      <select id="issue_type" name="issue_type" required>
+        <option value="">Select an issue...</option>
+        <option value="Battery too low">Battery too low</option>
+        <option value="Flat tire">Flat tire</option>
+        <option value="Mechanical problem (brakes, handlebar)">Mechanical problem (brakes, handlebar)</option>
+        <option value="Scooter won’t start/unlock">Scooter won’t start/unlock</option>
+        <option value="Scooter stuck/immobile">Scooter stuck/immobile</option>
+        <option value="Damaged body">Damaged body</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="additional_details">Additional Details (Optional unless "Other")</label>
+      <textarea id="additional_details" name="additional_details" placeholder="Describe the issue..."></textarea>
+    </div>
+
+    <input type="hidden" name="latitude" id="latitude">
+    <input type="hidden" name="longitude" id="longitude">
+
+    <h3>🔍 Scooter's Location</h3>
+    <div class="form-group">
+      <label for="address-input">Search for the Location</label>
+      <input id="address-input" type="text" placeholder="Search for location..." class="full-width-input">
+    </div>
+
+    <label for="map">Or Pick the Location</label>
+    <div id="map" style="height: 300px; width: 100%; margin-bottom: 1rem;"></div>
+
+    <button type="submit" class="btn-primary full-width">
+      <i class="icon-send"></i> Submit Report
+    </button>
+  </form>
+</main>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    async function fetchScooterData(id) {
+      const response = await fetch(`/get_scooter_details?scooter_id=${id}`);
+      return await response.json();
+    }
+
+    let map;
+    let userMarker = null;
+
+    async function initMap() {
+      const scooterId = document.getElementById("scooter_id").value || 1;
+      const scooterData = await fetchScooterData(scooterId);
+
+      const defaultCenter = {
+        lat: scooterData.latitude || 10.762622,
+        lng: scooterData.longitude || 106.660172
+      };
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const userCenter = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            renderMap(userCenter);
+          },
+          (error) => {
+            console.warn("Geolocation failed or denied:", error.message);
+            renderMap(defaultCenter);
+          }
+        );
+      } else {
+        console.warn("Geolocation not supported");
+        renderMap(defaultCenter);
+      }
+
+      function renderMap(center) {
+        map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 14,
+          center: center
+        });
+
+        map.addListener("click", (event) => {
+          if (userMarker) userMarker.setMap(null);
+          userMarker = new google.maps.Marker({
+            position: event.latLng,
+            map: map,
+            title: "Issue Location"
+          });
+          document.getElementById("latitude").value = event.latLng.lat();
+          document.getElementById("longitude").value = event.latLng.lng();
+        });
+
+        const input = document.getElementById("address-input");
+        const autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo("bounds", map);
+        autocomplete.addListener("place_changed", () => {
+          const place = autocomplete.getPlace();
+          if (!place.geometry || !place.geometry.location) {
+            alert("No details available for the selected address!");
+            return;
+          }
+          const location = place.geometry.location;
+          map.setCenter(location);
+          map.setZoom(16);
+
+          if (userMarker) userMarker.setMap(null);
+
+          userMarker = new google.maps.Marker({
+            map: map,
+            position: location,
+            title: "Selected Location",
+          });
+
+          document.getElementById("latitude").value = location.lat();
+          document.getElementById("longitude").value = location.lng();
+        });
+      }
+    }
+
+    window.initMap = initMap;
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap&libraries=places">
+  </script>
+{% endblock %}

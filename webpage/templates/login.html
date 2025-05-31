@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="form-container">
+  <h2>Welcome Back</h2>
+  <p class="form-subtext">Sign in to Scootr.io to get started</p>
+
+  {% if error %}
+    <div class="error-message">{{ error }}</div>
+  {% endif %}
+  {% if success %}
+    <div class="success-message">{{ success }}</div>
+  {% endif %}
+  {% if request.args.get('error') %}
+    <div class="error-message">{{ request.args.get('error') }}</div>
+  {% endif %}
+
+  {% if request.args.get('success') %}
+    <div class="success-message">{{ request.args.get('success') }}</div>
+  {% endif %}
+
+  <form method="POST" action="{{ url_for('user.login') }}">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" placeholder="Your username" required>
+
+    <label for="password">Password</label>
+    <div class="input-wrapper">
+      <input type="password" id="password" name="password" placeholder="Your password" required>
+
+      <!-- Eye icon (show) -->
+      <span class="eye-icon" id="eye-show">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+          <path d="M21 12c-2.4 4 -5.4 6 -9 6s-6.6 -2 -9 -6s5.4 -6 9 -6s6.6 2 9 6" />
+        </svg>
+      </span>
+
+      <!-- Eye icon (hide) -->
+      <span class="eye-icon" id="eye-hide" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M10.585 10.587a2 2 0 0 0 2.829 2.828"/>
+          <path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6a11.055 11.055 0 0 1 4.32 -4.674m2.86 -1.146c.6 -.1 1.2 -.15 1.82 -.15c3.6 0 6.6 2 9 6a11.115 11.115 0 0 1 -2.138 2.87"/>
+          <path d="M3 3l18 18" />
+        </svg>
+      </span>
+    </div>
+
+    <button type="submit" class="btn-primary full-width">Login</button>
+  </form>
+
+  <p class="form-note">
+    Forgot password?
+    <a href="{{ url_for('user.change_password') }}" class="link-register">Change password</a>.
+  </p>
+
+  <p class="form-note">
+    Don't have an account?
+    <a href="{{ url_for('user.register') }}" class="link-register">Register here</a>.
+  </p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+{% endblock %}
